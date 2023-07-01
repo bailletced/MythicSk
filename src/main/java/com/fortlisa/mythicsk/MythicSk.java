@@ -13,6 +13,7 @@ public class MythicSk extends JavaPlugin {
     public static FileConfiguration config;
 
     public void onEnable() {
+
         // Register Addon
         instance = this;
         addon = Skript.registerAddon(this);

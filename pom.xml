@@ -79,7 +79,7 @@
             <version>3.2.0</version>
             <configuration>
               <!-- Put here wherever you would like the plugin to build -->
-              <outputDirectory>/home/cedric/Projects/MythicSk/mc-server/plugins</outputDirectory>
+              <outputDirectory>./mc-server/plugins</outputDirectory>
             </configuration>
           </plugin>
         </plugins>
