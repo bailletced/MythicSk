@@ -1,0 +1,6 @@
+.vscode
+.idea
+mc-server/
+cache
+libraries
+docker-compose.yml

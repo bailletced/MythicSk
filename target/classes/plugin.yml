@@ -1,0 +1,5 @@
+name: MythicSk
+author: Bailletced
+main: com.fortlisa.mythicsk.MythicSk
+version: 0.0.1
+depend: [MythicMobs, Skript]
