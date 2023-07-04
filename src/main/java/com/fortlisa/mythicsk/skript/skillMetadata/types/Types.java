@@ -4,22 +4,22 @@ import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.classes.Parser;
 import ch.njol.skript.expressions.base.EventValueExpression;
 import ch.njol.skript.registrations.Classes;
-import io.lumine.mythic.core.skills.SkillMetadataImpl;
+import io.lumine.mythic.api.skills.SkillMetadata;
 
 public class Types {
     static {
-        Classes.registerClass(new ClassInfo<SkillMetadataImpl>(SkillMetadataImpl.class, "skilldata")
+        Classes.registerClass(new ClassInfo<SkillMetadata>(SkillMetadata.class, "skilldata")
                 .user("skilldata")
                 .name("skilldata")
-                .defaultExpression(new EventValueExpression<>(SkillMetadataImpl.class))
-                .parser(new Parser<SkillMetadataImpl>() {
+                .defaultExpression(new EventValueExpression<>(SkillMetadata.class))
+                .parser(new Parser<SkillMetadata>() {
                     @Override
-                    public String toString(SkillMetadataImpl skillMetadata, int i) {
+                    public String toString(SkillMetadata skillMetadata, int i) {
                         return skillMetadata.toString();
                     }
 
                     @Override
-                    public String toVariableNameString(SkillMetadataImpl skillMetadata) {
+                    public String toVariableNameString(SkillMetadata skillMetadata) {
                         return skillMetadata.toString();
                     }
                 })

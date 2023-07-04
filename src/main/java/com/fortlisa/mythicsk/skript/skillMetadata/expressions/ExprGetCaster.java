@@ -9,7 +9,7 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import io.lumine.mythic.core.skills.SkillMetadataImpl;
+import io.lumine.mythic.api.skills.SkillMetadata;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
@@ -30,10 +30,10 @@ public class ExprGetCaster extends SimpleExpression<Entity> {
                 "caster [of|from] %skilldata%"
         );
     }
-    Expression<SkillMetadataImpl> caster;
+    Expression<SkillMetadata> caster;
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
-        caster = (Expression<SkillMetadataImpl>) exprs[0];
+        caster = (Expression<SkillMetadata>) exprs[0];
         return true;
     }
 
@@ -54,7 +54,7 @@ public class ExprGetCaster extends SimpleExpression<Entity> {
 
     @Override
     protected Entity[] get(Event event) {
-        SkillMetadataImpl meta = caster.getSingle(event);
+        SkillMetadata meta = caster.getSingle(event);
         if (meta == null) {
             Bukkit.getLogger().info("I am NULL");
         }
