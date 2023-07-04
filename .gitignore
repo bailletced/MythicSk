@@ -3,4 +3,5 @@
 mc-server/
 cache
 libraries
+target
 docker-compose.yml
