@@ -17,8 +17,6 @@ public class SkriptFunctionMechanic extends SkillMechanic implements INoTargetSk
     private static final int LOCATION_POS=2;
     Function<?> function;
     String name;
-    Object[][] parameters;
-    int dataPos,locationPos,entityPos;
 
     public SkriptFunctionMechanic(SkillExecutor se, String skill, MythicLineConfig mlc) {
         super(se, skill, mlc);
@@ -26,24 +24,7 @@ public class SkriptFunctionMechanic extends SkillMechanic implements INoTargetSk
         this.name=mlc.getString("name","");
         this.function=Functions.getFunction(name);
 
-        if(function!=null) {
-//            parameters = new Object[function.getParameters().length][];
-//            for (int i = 0; i < function.getParameters().length; i++) {
-//                String type = function.getParameter(i).getType().getCodeName();
-//                switch (type) {
-//                    case "skilldata":
-//                        dataPos = i;
-//                        break;
-//                    case "location":
-//                        locationPos = i;
-//                        break;
-//                    case "entity":
-//                        entityPos = i;
-//                        break;
-//                }
-//            }
-        }
-        else {
+        if(function==null) {
             Bukkit.getLogger().warning("Cant find function "+name);
         }
     }
@@ -51,11 +32,9 @@ public class SkriptFunctionMechanic extends SkillMechanic implements INoTargetSk
     @Override
     public SkillResult cast(SkillMetadata skillMetadata) {
         Bukkit.getLogger().info("entityTargets"+skillMetadata.getEntityTargets().toString());
-//        Bukkit.getLogger().info(parameters.toString());
         this.function.execute(new Object[][] {
                 {skillMetadata},
         });
-
         return SkillResult.SUCCESS;
     }
 

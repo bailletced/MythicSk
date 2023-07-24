@@ -3,9 +3,6 @@ package com.fortlisa.mythicsk;
 import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
 import com.fortlisa.mythicsk.api.MythicListener;
-import com.fortlisa.mythicsk.skript.skillMetadata.types.Types;
-import io.lumine.mythic.bukkit.events.MythicMechanicLoadEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
