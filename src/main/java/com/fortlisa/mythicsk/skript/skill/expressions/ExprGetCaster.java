@@ -1,11 +1,10 @@
-package com.fortlisa.mythicsk.skript.skillMetadata.expressions;
+package com.fortlisa.mythicsk.skript.skill.expressions;
 
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import io.lumine.mythic.api.skills.SkillMetadata;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 
 @Name("caster")

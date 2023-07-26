@@ -10,14 +10,10 @@ import io.lumine.mythic.api.config.MythicLineConfig;
 import io.lumine.mythic.bukkit.MythicBukkit;
 import io.lumine.mythic.bukkit.events.MythicMechanicLoadEvent;
 import io.lumine.mythic.bukkit.events.MythicTargeterLoadEvent;
-import io.lumine.mythic.core.mobs.ActiveMob;
 import io.lumine.mythic.core.skills.SkillExecutor;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class MythicListener implements Listener {
     public static void register() {
@@ -29,23 +25,11 @@ public class MythicListener implements Listener {
     }
 
     @EventHandler
-    public void onCreatureSpawnEvent(CreatureSpawnEvent e) {
-        if (e.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.CUSTOM) && !e.isCancelled()) {
-            Entity bukkitEntity = e.getEntity();
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    if (!(MythicBukkit.inst().getAPIHelper().isMythicMob(bukkitEntity))) return;
-                    ActiveMob activeMob = MythicBukkit.inst().getAPIHelper().getMythicMobInstance(bukkitEntity);
-                    //TODO : implement logic related to spawner
-//                    if (activeMob.getSpawner()!=null) {
-//                        mmMythicSpawnerSpawnEvent e = new mmMythicSpawnerSpawnEvent(am.getSpawner(), am);
-//                        Bukkit.getServer().getPluginManager().callEvent(e);
-//                    }
-                    MythicMobSpawnEvent e = new MythicMobSpawnEvent(activeMob);
-                    Bukkit.getServer().getPluginManager().callEvent(e);
-                }
-            }.runTaskLater(MythicSk.instance, 1);
+    public void onMythicMobSpawnEvent(io.lumine.mythic.bukkit.events.MythicMobSpawnEvent e) {
+        if (!e.isCancelled()) {
+            MythicMobSpawnEvent mmSpawnEvent = new MythicMobSpawnEvent(e.getMob());
+            Bukkit.getServer().getPluginManager().callEvent(mmSpawnEvent);
+            //TODO : implement logic related to spawners
         }
     }
 

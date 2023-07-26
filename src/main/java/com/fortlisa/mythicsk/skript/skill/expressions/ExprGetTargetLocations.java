@@ -1,4 +1,4 @@
-package com.fortlisa.mythicsk.skript.skillMetadata.expressions;
+package com.fortlisa.mythicsk.skript.skill.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
