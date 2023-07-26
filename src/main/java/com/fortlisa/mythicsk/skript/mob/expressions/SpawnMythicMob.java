@@ -7,6 +7,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.skript.util.Task;
 import ch.njol.util.Kleenean;
 import io.lumine.mythic.api.adapters.AbstractLocation;
 import io.lumine.mythic.bukkit.BukkitAdapter;
@@ -54,13 +55,12 @@ public class SpawnMythicMob extends SimpleExpression<ActiveMob> {
         String mobtype = mobName.getSingle(event);
         AbstractLocation finalLoc = BukkitAdapter.adapt(location.getSingle(event));
         double mobLevel = level.getSingle(event).doubleValue();
-        ActiveMob am;
 
         if (finalLoc==null) return null;
 
-        if ((am = MythicBukkit.inst().getMobManager().spawnMob(mobtype, finalLoc, mobLevel))==null) {
+        ActiveMob am = Task.callSync(() -> MythicBukkit.inst().getMobManager().spawnMob(mobtype, finalLoc, mobLevel));
+        if (am == null) {
             Skript.warning("Mob "+this.mobName+" is not registered by MythicMob");
-            return null;
         }
         return new ActiveMob[]{am};
     }

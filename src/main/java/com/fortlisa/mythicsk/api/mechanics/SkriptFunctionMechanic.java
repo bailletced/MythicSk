@@ -12,26 +12,24 @@ import io.lumine.mythic.core.skills.SkillMechanic;
 import org.bukkit.Bukkit;
 
 public class SkriptFunctionMechanic extends SkillMechanic implements INoTargetSkill, ITargetedEntitySkill, ITargetedLocationSkill {
-    private static final int SKILL_DATA_POS=0;
-    private static final int ENTITY_POS=1;
-    private static final int LOCATION_POS=2;
     Function<?> function;
     String name;
+    MythicLineConfig mythicLineConfig;
 
     public SkriptFunctionMechanic(SkillExecutor se, String skill, MythicLineConfig mlc) {
         super(se, skill, mlc);
-        Bukkit.getLogger().info("Mechanic passe : "+se.getTargeters().toString());
         this.name=mlc.getString("name","");
         this.function=Functions.getFunction(name);
+        this.mythicLineConfig = mlc;
 
         if(function==null) {
-            Bukkit.getLogger().warning("Cant find function "+name);
+            Bukkit.getLogger().warning("\nCant find function "+name);
         }
     }
 
     @Override
     public SkillResult cast(SkillMetadata skillMetadata) {
-        Bukkit.getLogger().info("entityTargets"+skillMetadata.getEntityTargets().toString());
+        skillMetadata.setMetadata("mlc", mythicLineConfig);
         this.function.execute(new Object[][] {
                 {skillMetadata},
         });
@@ -40,6 +38,7 @@ public class SkriptFunctionMechanic extends SkillMechanic implements INoTargetSk
 
     @Override
     public SkillResult castAtEntity(SkillMetadata skillMetadata, AbstractEntity abstractEntity) {
+        skillMetadata.setMetadata("mlc", mythicLineConfig);
         this.function.execute(new Object[][] {
                 {skillMetadata},
                 {abstractEntity.getBukkitEntity()}
@@ -50,6 +49,7 @@ public class SkriptFunctionMechanic extends SkillMechanic implements INoTargetSk
 
     @Override
     public SkillResult castAtLocation(SkillMetadata skillMetadata, AbstractLocation abstractLocation) {
+        skillMetadata.setMetadata("mlc", mythicLineConfig);
         this.function.execute(new Object[][] {
                 {skillMetadata},
                 {BukkitAdapter.adapt(abstractLocation)}
